@@ -1,7 +1,10 @@
 from django.urls import path
-from .views import ListTextApi
+from .views.uplode_proxy import ProxyUploadView
+from .views.scraper import ScraperApiView
 
 urlpatterns = [
 
-    path('', ListTextApi.as_view())
+    path('run-request/', ScraperApiView.as_view()),
+    path("upload-proxies/", ProxyUploadView.as_view(), name="upload-proxies"),
+
 ]
