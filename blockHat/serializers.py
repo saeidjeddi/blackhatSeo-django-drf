@@ -6,3 +6,5 @@ class ProxySerializer(serializers.ModelSerializer):
         model = Proxy
         fields = ['id', 'proxy_test', 'created_at']
 
+class UserAgentFileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()

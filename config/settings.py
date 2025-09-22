@@ -163,3 +163,7 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 
 }
+
+
+CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672"
+CELERY_RESULT_BACKEND = "rpc://"
