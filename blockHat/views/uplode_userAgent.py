@@ -12,6 +12,19 @@ class UploadUserAgentsView(APIView):
         if serializer.is_valid():
             file = serializer.validated_data['file']
 
+            if not file:
+                return Response({"detail": "No file sent."}, status=status.HTTP_400_BAD_REQUEST)
+            max_size = 1 * 1024 * 1024
+            if file.size > max_size:
+                return Response({"detail": "The file size is larger than 1 MB."}, status=status.HTTP_400_BAD_REQUEST)
+
+            filename = file.name.lower()
+
+            if not filename.endswith(".txt"):
+                return Response({"detail": "Only .txt  files are allowed."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
             for line in file:
                 ua_string = line.decode('utf-8').strip()
                 if not ua_string:
