@@ -64,6 +64,8 @@ python manage.py runserver
 ```powershell
 # از درون virtualenv
 celery -A config worker -l info
+Or
+celery -A config worker -P solo -l info
 ```
 
 همچنین از `flower` یا ابزارهای مشابه برای مانیتورینگ می‌توانید استفاده کنید.
