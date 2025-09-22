@@ -1,12 +1,10 @@
-# tasks.py
-
 from celery import shared_task
 from blockHat.models import Proxy, TaskStatus, UserAgentDesktop, UserAgentMobile, RequestLog
 import random, time, requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 @shared_task(bind=True, name="request_data_task")
-def request_data_task(self, url_request, range_request, user_agent_choice="all", referrers_choice="https://www.facebook.com/"):
+def request_data_task(self, url_request, range_request, user_agent_choice, referrers_choice):
     task_status, _ = TaskStatus.objects.get_or_create(
         task_id=self.request.id,
         defaults={
@@ -55,7 +53,7 @@ def request_data_task(self, url_request, range_request, user_agent_choice="all",
         try:
             response = requests.get(url_request, headers=headers, proxies=proxy, timeout=10)
             status_code = response.status_code
-            print(f"=>{status_code},")
+            print(f"=> {status_code}, {language}, {url_request}, {referer}, {user_agent} <=")
         except Exception as e:
             error = str(e)
 
