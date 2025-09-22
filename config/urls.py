@@ -23,9 +23,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 urlpatterns = [
     path('', include('blockHat.urls')),
-    path('admin/panel/r-d/', admin.site.urls),
 ]
-
 
 urlpatterns += [
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
