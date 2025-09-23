@@ -1,3 +1,5 @@
+from time import time
+
 from rest_framework import serializers
 from .models import Proxy, TaskStatus
 
@@ -18,9 +20,14 @@ class ListHistoryTaskSerializer(serializers.ModelSerializer):
         exclude = ['duration']
 
     def get_processingTime(self, obj):
-        seconds = obj.duration
+        if obj.status == "RUNNING":
+            seconds = int(time() - obj.created_at.timestamp())
+        else:
+            seconds = obj.duration
+
         if seconds is None:
             return None
+
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
         secs = seconds % 60

@@ -20,7 +20,7 @@ class TaskStatusInfoApiView(APIView):
             "referer": task_status.referer,
             "status": task_status.status,
             "completed_requests": task_status.completed_requests,
-            "total_requests": task_status.total_requests,
+            "request_granted": task_status.request_granted,
             "duration": int(duration)
         })
     

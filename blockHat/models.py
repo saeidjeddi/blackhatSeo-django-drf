@@ -13,7 +13,7 @@ class TaskStatus(models.Model):
     task_id = models.CharField(max_length=255, unique=True)
     url = models.URLField()
     referer = models.URLField()
-    total_requests = models.IntegerField()
+    request_granted = models.IntegerField()
     completed_requests = models.IntegerField(default=0)
     status = models.CharField(max_length=50, default="PENDING")
     duration = models.PositiveIntegerField(null=True, blank=True)
