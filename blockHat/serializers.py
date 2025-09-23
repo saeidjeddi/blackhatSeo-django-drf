@@ -10,16 +10,14 @@ class UserAgentFileUploadSerializer(serializers.Serializer):
     file = serializers.FileField()
 
 
-
-
 class ListHistoryTaskSerializer(serializers.ModelSerializer):
-    formatted_duration = serializers.SerializerMethodField()
+    processingTime = serializers.SerializerMethodField()
 
     class Meta:
         model = TaskStatus
-        fields = '__all__'
+        exclude = ['duration']
 
-    def get_formatted_duration(self, obj):
+    def get_processingTime(self, obj):
         seconds = obj.duration
         if seconds is None:
             return None
