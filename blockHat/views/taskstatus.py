@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from blockHat.models import TaskStatus
 from time import time
 
-class TaskStatusApiView(APIView):
+class TaskStatusInfoApiView(APIView):
     def get(self, request, task_id):
         try:
             task_status = TaskStatus.objects.get(task_id=task_id)
@@ -23,3 +23,4 @@ class TaskStatusApiView(APIView):
             "total_requests": task_status.total_requests,
             "duration": int(duration)
         })
+    

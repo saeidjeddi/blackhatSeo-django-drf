@@ -1,5 +1,3 @@
-# views.py
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from ..utils.tasks import request_data_task
@@ -17,6 +15,8 @@ class ScraperApiView(APIView):
 
         try:
             range_request = int(range_request)
+            if range_request < 1 or range_request > 1000:
+                return Response({"error": "range must be between 1 and 1000!"}, status=400)
         except ValueError:
             return Response({"error": "range must be integer!"}, status=400)
 

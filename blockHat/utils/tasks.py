@@ -30,6 +30,7 @@ def request_data_task(self, url_request, range_request, user_agent_choice, refer
 
     languages = ["en-US", "en-CA", "es-ES"]
     def make_request(i):
+        time.sleep(1)
         user_agent = random.choice(user_agents)
         language = random.choice(languages)
         referer = referrers_choice
@@ -74,7 +75,7 @@ def request_data_task(self, url_request, range_request, user_agent_choice, refer
 
     start_time = time.time()
 
-    with ThreadPoolExecutor(max_workers=min(20, range_request)) as executor:
+    with ThreadPoolExecutor(max_workers=min(7, range_request)) as executor:
         futures = [executor.submit(make_request, i) for i in range(range_request)]
         print("---------------")
         for _ in as_completed(futures):
