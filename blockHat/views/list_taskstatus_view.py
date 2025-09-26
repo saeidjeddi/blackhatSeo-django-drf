@@ -11,12 +11,20 @@ class PageNumberPaginationResults(PageNumberPagination):
     max_page_size = 100
 
 
+from django.db.models import Case, When, Value, IntegerField
+
 class ListHistoryTaskStatusView(APIView):
     serializer_class = ListHistoryTaskSerializer
     pagination_class = PageNumberPaginationResults
 
     def get(self, request):
-        tasks = TaskStatus.objects.all().order_by('-status', '-updated_at')
+        tasks = TaskStatus.objects.annotate(
+            status_order=Case(
+                When(status="RUNNING", then=Value(0)),
+                default=Value(1),
+                output_field=IntegerField(),
+            )
+        ).order_by('status_order', '-updated_at')
 
         paginator = self.pagination_class()
         page = paginator.paginate_queryset(tasks, request)

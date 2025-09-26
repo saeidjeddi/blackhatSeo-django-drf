@@ -12,24 +12,22 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
+from decouple import config
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+SECRET_KEY = 'django-insecure-nuzd_n&+g_@uk$t$#t(26=uf-27b14a2nl+015q(hun%cgt$#v'
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(6sysixm+rlouhexsur2_r@v+980n7#-3i28-%9%&mzvdl9d9#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
-# Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,8 +41,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    'rest_framework_simplejwt',
 
 # my apps
+    'accounts.apps.AccountsConfig',
     'blockHat.apps.BlockhatConfig',
 ]
 
@@ -78,19 +78,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+
+   'user_cid': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME_USER'),
+        'USER': config('DB_USER_USR'),
+        'PASSWORD': config('DB_PASSWORD_USER'),
+        'HOST': config('DB_HOST_USER'),
+        'PORT': config('DB_PORT_USER'),
+        'OPTIONS': {
+            'charset': 'utf8'
+        },
+    },
+
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,25 +115,22 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'GMT'
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -142,6 +146,10 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 
@@ -164,6 +172,11 @@ SPECTACULAR_SETTINGS = {
 
 }
 
-
+AUTH_USER_MODEL = "accounts.User"
+DATABASE_ROUTERS = ['config.routers.db_routers.UserRouter']
 CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672"
-CELERY_RESULT_BACKEND = "rpc://"
+
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_TIMEZONE = 'GMT'
+CELERY_ENABLE_UTC = True
+

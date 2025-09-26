@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "b70ff742-8223-46b4-a193-1e55c465d750",
+		"name": "clike",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20105269"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/upload-proxies/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/upload-proxies/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"upload-proxies",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/task-status-info/2e8bcd4e-badb-41d5-85c6-0713d0d643b7/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/task-status-info/a7c96dbf-ec65-4f6d-a324-6032ebabd92a/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"task-status-info",
+						"a7c96dbf-ec65-4f6d-a324-6032ebabd92a",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/run-request/?url=https://mealzo.co.uk/&range=100&user_agent=desktop&referrer=https://www.facebook.",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/run-request/?url=https://mealzo.co.uk/&range=100&user_agent=all&referrer=https://www.facebook.com/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"run-request",
+						""
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://mealzo.co.uk/"
+						},
+						{
+							"key": "range",
+							"value": "100"
+						},
+						{
+							"key": "user_agent",
+							"value": "all"
+						},
+						{
+							"key": "referrer",
+							"value": "https://www.facebook.com/"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

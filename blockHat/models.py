@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 class Proxy(models.Model):
     proxy_test = models.TextField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -17,6 +19,7 @@ class TaskStatus(models.Model):
     completed_requests = models.IntegerField(default=0)
     status = models.CharField(max_length=50, default="PENDING")
     duration = models.PositiveIntegerField(null=True, blank=True)
+    stop_requested = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -42,3 +45,5 @@ class RequestLog(models.Model):
     language = models.TextField(null=True, blank=True)
     error = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
